@@ -18,18 +18,17 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 if ( !defined( 'ABSPATH' ) ) {
 	die;
 }
-if ( !defined( 'SHORTCODE_WIDGET_PATH' ) ) {
+if ( !defined( 'CODE_WIDGET_PATH' ) ) {
 	/**
 	 * Absolute path of this plugin
 	 *
 	 * @since 1.0
 	 */
-	define( 'SHORTCODE_WIDGET_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+	define( 'CODE_WIDGET_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 }
 
-define( 'CW_VERSION', '1.0.0' );
-define( 'CW_TEXT_DOMAIN', 'code-widget' );
-define( 'SSW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'CODE_WIDGET_VERSION', '1.0.0' );
+define( 'CODE_WIDGET_TEXT_DOMAIN', 'code-widget' );
 
 if ( !class_exists( 'Code_Widget' ) ) {
 
@@ -46,8 +45,8 @@ class Code_Widget extends WP_Widget {
 		load_plugin_textdomain( CW_TEXT_DOMAIN, false, dirname( plugin_basename( __FILE__ ) ) );
 		parent::__construct(
 			'codewidget', // Base ID
-			esc_html__( 'Code Widget', CW_TEXT_DOMAIN ), // Name
-			array( 'description' => esc_html__( 'Any Text,Short Code,HTML,PHP Code .', CW_TEXT_DOMAIN ), ) // Args
+			esc_html__( 'Code Widget',CODE_WIDGET_TEXT_DOMAIN), // Name
+			array( 'description' => esc_html__( 'Any Text,Short Code,HTML,PHP Code .',CODE_WIDGET_TEXT_DOMAIN), ) // Args
 		);
 	}
 
@@ -110,19 +109,19 @@ class Code_Widget extends WP_Widget {
 	 */
 	public function form( $instance ) {
 
-		$title                  = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'New title', CW_TEXT_DOMAIN );
+		$title                  = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'New title',CODE_WIDGET_TEXT_DOMAIN);
 		$instance['cw_type']    = ! empty( $instance['cw_type'] ) ? $instance['cw_type'] : 'short_code';
-		$instance['cw_content'] = ! empty( $instance['cw_content'] ) ? $instance['cw_content'] : esc_html__( 'your code ....', CW_TEXT_DOMAIN );
+		$instance['cw_content'] = ! empty( $instance['cw_content'] ) ? $instance['cw_content'] : esc_html__( 'your code ....',CODE_WIDGET_TEXT_DOMAIN);
 		$instance['cw_filter'] = ! empty( $instance['cw_filter'] ) ? $instance['cw_filter'] : 0 ;
 		?>
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', CW_TEXT_DOMAIN ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:',CODE_WIDGET_TEXT_DOMAIN); ?></label>
             <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
                    name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text"
                    value="<?php echo esc_attr( $title ); ?>">
         </p>
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'cw_type' ) ); ?>"><?php esc_attr_e( 'Widget Type:', CW_TEXT_DOMAIN ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'cw_type' ) ); ?>"><?php esc_attr_e( 'Widget Type:',CODE_WIDGET_TEXT_DOMAIN); ?></label>
         </p>
         <select class="widefat" name="<?php echo esc_attr( $this->get_field_name( 'cw_type' ) ) ?>"
                 id="<?php echo esc_attr( $this->get_field_id( 'cw_type' ) ); ?>"
@@ -139,7 +138,7 @@ class Code_Widget extends WP_Widget {
         <p><input id="<?php echo $this->get_field_id( 'cw_filter' ); ?>"
                   name="<?php echo $this->get_field_name( 'cw_filter' ); ?>"
                   type="checkbox" <?php checked( $instance['cw_filter']  , 'on'); ?> />&nbsp;<label
-                    for="<?php echo $this->get_field_id( 'cw_filter' ); ?>"><?php _e( 'Automatically add paragraphs.', CW_TEXT_DOMAIN ); ?></label>
+                    for="<?php echo $this->get_field_id( 'cw_filter' ); ?>"><?php _e( 'Automatically add paragraphs.',CODE_WIDGET_TEXT_DOMAIN); ?></label>
         </p>
 		<?php
 	}
