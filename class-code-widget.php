@@ -51,7 +51,7 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 			parent::__construct(
 				'codewidget', // Base ID.
 				esc_html__( 'Code Widget', CODE_WIDGET_TEXT_DOMAIN ), // Name.
-				array( 'description' => esc_html__( 'Any Text,Short Code,HTML,PHP Code .', CODE_WIDGET_TEXT_DOMAIN ), ) // Args
+				array( 'description' => esc_html__( 'Any Text,Short Code,HTML,PHP Code .', CODE_WIDGET_TEXT_DOMAIN ) ) // Args.
 			);
 		}
 
