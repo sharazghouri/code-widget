@@ -7,7 +7,7 @@ Stable tag: 4.9
 License: GPLv2
 License URI: http://www.opensource.org/licenses/GPL-2.0
 
-Code widget help  to  add  Short Code, PHP Code, HTML, and simple Text in widget.
+Code widget help  to  add  Short Code, PHP Code, HTML, and Simple Text in widget.
 
 == Description ==
 
