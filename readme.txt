@@ -55,8 +55,9 @@ Only users with the unfiltered_html role will be allowed to insert unfiltered HT
 
 
 == Changelog ==
-
-= 1.0 =
+= 1.0.1 =
+* Typo fix
+= 1.0.0 =
 *  Short Code  Support Added
 *  PHP Code Support Added
 *  HTML Support  Added
