@@ -1,5 +1,5 @@
 ===  Code Widget ===
-Contributors: shasharaz
+Contributors: sharaz
 Tags: php, widget, short code, html, text, auto add paragraph
 Requires at least: 3.0
 Tested up to: 4.7
