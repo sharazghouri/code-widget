@@ -1,5 +1,5 @@
 ===  Code Widget ===
-Contributors: Sharaz Shahid
+Contributors: sharaz
 Tags: php, widget, short code, html, text, auto add paragraph
 Requires at least: 3.0
 Tested up to: 4.7
@@ -25,9 +25,9 @@ Only users with the unfiltered_html role will be allowed to insert unfiltered HT
 
 = Can we run PHP Code in this widget ?=
 
-  Yes, All PHP code must be enclosed in the standard php opening and closing tags ( <?php and ?> ) for it to be recognized and executed. Please See screen shot to check how PHP Code work.
+  Yes, All PHP code must be enclosed in the standard php opening and closing tags ( `<?php` and `?>` ) for it to be recognized and executed. Please See screen shot to check how PHP Code work.
 
-= There's some kind of error code-widget.php(188) : eval()'d code on line 6 =
+= There's some kind of error  code-widget.php(188) : eval()'d code on line 6 =
 
   That  means  your PHP code is incorrect or otherwise broken.
 
