@@ -1,5 +1,5 @@
 ===  Code Widget ===
-Contributors: sharaz
+Contributors: shasharaz
 Tags: php, widget, short code, html, text, auto add paragraph
 Requires at least: 3.0
 Tested up to: 4.7
@@ -56,7 +56,7 @@ Only users with the unfiltered_html role will be allowed to insert unfiltered HT
 
 == Changelog ==
 = 1.0.1 =
-* Typo fix
+* read me update
 = 1.0.0 =
 *  Short Code  Support Added
 *  PHP Code Support Added
