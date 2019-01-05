@@ -2,8 +2,8 @@
 Contributors: sharaz
 Tags: php, widget, short code, html, text, auto add paragraph
 Requires at least: 3.0
-Tested up to: 4.7
-Stable tag: 4.9
+Tested up to: 5.0.2
+Stable tag: 5.0.0
 License: GPLv2
 License URI: http://www.opensource.org/licenses/GPL-2.0
 
@@ -55,8 +55,13 @@ Only users with the unfiltered_html role will be allowed to insert unfiltered HT
 
 
 == Changelog ==
+= 1.0.2 =
+* Bug Fix : Use of undefined constant CW_TEXT_DOMAIN
+* Compatibility :   5.0.0 compatibility added
+
 = 1.0.1 =
 * read me update
+
 = 1.0.0 =
 *  Short Code  Support Added
 *  PHP Code Support Added
