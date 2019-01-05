@@ -28,7 +28,7 @@ if ( ! defined( 'CODE_WIDGET_PATH' ) ) {
 	define( 'CODE_WIDGET_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 }
 
-define( 'CODE_WIDGET_VERSION', '1.0.0' );
+define( 'CODE_WIDGET_VERSION', '1.0.2' );
 define( 'CODE_WIDGET_TEXT_DOMAIN', 'code-widget' );
 
 if ( ! class_exists( 'Code_Widget' ) ) {
