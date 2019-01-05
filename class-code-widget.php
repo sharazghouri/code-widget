@@ -47,7 +47,7 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 		 * Register widget with WordPress.
 		 */
 		public function __construct() {
-			load_plugin_textdomain( CW_TEXT_DOMAIN, false, dirname( plugin_basename( __FILE__ ) ) );
+			load_plugin_textdomain( CODE_WIDGET_TEXT_DOMAIN, false, dirname( plugin_basename( __FILE__ ) ) );
 			parent::__construct(
 				'codewidget', // Base ID.
 				esc_html__( 'Code Widget', CODE_WIDGET_TEXT_DOMAIN ), // Name.
