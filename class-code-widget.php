@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Code Widget
- * Plugin URI: http://URI_Of_Page_Describing_Plugin_and_Updates
+ * Plugin URI: 
  * Description: Code Widget help you to run <code>Code</code> and simple text in  widget which have different type <code>Short Code</code> <code>PHP Code</code>. Yes, you can also add <code>TEXT</code> and  <code>HTML</code>.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Sharaz Shahid
  * Author URI: https://twitter.com/sharazghouri1
  * Text Domain: code-widget
