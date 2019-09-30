@@ -1,9 +1,9 @@
 ===  Code Widget ===
 Contributors: sharaz
-Tags: php, widget, short code, html, text, auto add paragraph
-Requires at least: 3.0
-Tested up to: 5.0.2
-Stable tag: 1.0.2
+Tags: php, widget, short code, html, code
+Requires at least: 4.0
+Tested up to: 5.2.3
+Stable tag: 1.0.3
 License: GPLv2
 License URI: http://www.opensource.org/licenses/GPL-2.0
 
@@ -55,6 +55,9 @@ Only users with the unfiltered_html role will be allowed to insert unfiltered HT
 
 
 == Changelog ==
+= 1.0.3 =
+* Compatibility :   5.2.3 compatibility added
+
 = 1.0.2 =
 * Bug Fix : Use of undefined constant CW_TEXT_DOMAIN
 * Compatibility :   5.0.0 compatibility added
@@ -69,3 +72,7 @@ Only users with the unfiltered_html role will be allowed to insert unfiltered HT
 *  Simple Text Support  Added
 *  Auto app Paragraph check Added
 
+== Upgrade Notice ==
+
+= 1.0.3 =
+ Please update to least version of the plugin to avoid any inconvenient. 
