@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Code Widget
- * Plugin URI: 
+ * Plugin URI: https://wordpress.org/plugins/code-widget/
  * Description: Code Widget help you to run <code>Code</code> and simple text in  widget which have different type <code>Short Code</code> <code>PHP Code</code>. Yes, you can also add <code>TEXT</code> and  <code>HTML</code>.
  * Version: 1.0.3
  * Author: Sharaz Shahid
