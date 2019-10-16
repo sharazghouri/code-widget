@@ -18,13 +18,14 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
+
 if ( ! defined( 'CODE_WIDGET_PATH' ) ) {
+
 	/**
 	 * Absolute path of this plugin
 	 *
 	 * @since 1.0
 	 */
-
 	define( 'CODE_WIDGET_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 }
 
@@ -37,12 +38,14 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 	 * Adds Code_Widget.
 	 */
 	class Code_Widget extends WP_Widget {
+
 		/**
 		 * Instance of the class
 		 *
 		 * @var instance
 		 */
 		public static $instance;
+
 		/**
 		 * Register widget with WordPress.
 		 */
@@ -75,7 +78,7 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 			}
 
 			if ( 'short_code' == $cw_type ) {
-				$cw_final_content      = do_shortcode( $cw_content );
+				$cw_final_content = do_shortcode( $cw_content );
 			}
 
 			if ( 'html_code' == $cw_type ) {
@@ -88,14 +91,14 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 
 			$cw_final_content = apply_filters( 'cw_final_content', $cw_final_content );
 
-			echo $args['before_widget'] ;
+			echo $args['before_widget'];
 
 			if ( ! empty( $instance['title'] ) ) {
-				echo  $args['before_title']  . esc_html( apply_filters( 'widget_title', $instance['title'] ) ) .  $args['after_title'];
+				echo $args['before_title'] . esc_html( apply_filters( 'widget_title', $instance['title'] ) ) . $args['after_title'];
 			}
-			echo '<div class="code-widget">'.( $cw_filter ? wpautop( $cw_final_content ) : $cw_final_content ) . '</div>';
+			echo '<div class="code-widget">' . ( $cw_filter ? wpautop( $cw_final_content ) : $cw_final_content ) . '</div>';
 
-			echo  $args['after_widget'] ;
+			echo $args['after_widget'];
 		}
 
 		/**
@@ -106,7 +109,7 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 		 * @param array $instance Previously saved values from database.
 		 */
 		public function form( $instance ) {
-			$title                  = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'New title', CODE_WIDGET_TEXT_DOMAIN );
+			$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'New title', CODE_WIDGET_TEXT_DOMAIN );
 			if ( 0 == count( $instance ) ) {
 				$instance['cw_type']    = ! empty( $instance['cw_type'] ) ? $instance['cw_type'] : 'short_code';
 				$instance['cw_content'] = ! empty( $instance['cw_content'] ) ? $instance['cw_content'] : esc_html__( 'your code ....', CODE_WIDGET_TEXT_DOMAIN );
@@ -116,7 +119,7 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 				$instance['cw_content'] = $instance['cw_content'];
 				$instance['cw_filter']  = $instance['cw_filter'];
 			}
-		?>
+			?>
 				<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', CODE_WIDGET_TEXT_DOMAIN ); ?></label>
 				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
@@ -134,14 +137,14 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 				</select>
 				<p>
 				<textarea class="widefat" rows="12" cols="20" id="<?php echo esc_attr( $this->get_field_id( 'cw_content' ) ); ?>"
-				name="<?php echo esc_attr( $this->get_field_name( 'cw_content' ) ); ?>"><?php echo  $instance['cw_content']  ?></textarea>
+				name="<?php echo esc_attr( $this->get_field_name( 'cw_content' ) ); ?>"><?php echo $instance['cw_content']; ?></textarea>
 				</p
 				<p><input id="<?php echo esc_attr( $this->get_field_id( 'cw_filter' ) ); ?>"
 				name="<?php echo esc_attr( $this->get_field_name( 'cw_filter' ) ); ?>"
 				type="checkbox" <?php checked( $instance['cw_filter'], 'on' ); ?>/>&nbsp;<label
 				for="<?php echo esc_html( $this->get_field_id( 'cw_filter' ) ); ?>"><?php esc_html_e( 'Automatically add paragraphs.', CODE_WIDGET_TEXT_DOMAIN ); ?></label>
 				</p>
-		<?php
+			<?php
 		}
 
 		/**
@@ -176,6 +179,7 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 			}
 			return $instance;
 		}
+
 		/**
 		 * Php exe use to excute php code in string
 		 *
@@ -189,6 +193,7 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 			ob_end_clean();
 			return apply_filters( 'after_cw_php_exe', $text );
 		}
+
 		/**
 		 * Returns the current instance of the class, in case some other
 		 * plugin needs to use its public methods.
@@ -209,7 +214,7 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 		}
 
 
-	} // class Code_Widget
+	} // class Code_Widget.
 
 	/**
 	 * Simple  code widget register
