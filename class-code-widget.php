@@ -127,18 +127,28 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 				value="<?php echo esc_attr( $title ); ?>">
 				</p>
 				<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'cw_type' ) ); ?>"><?php esc_attr_e( 'Widget Type:', CODE_WIDGET_TEXT_DOMAIN ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'cw_type' ) ); ?>">
+					<?php esc_attr_e( 'Widget Type:', CODE_WIDGET_TEXT_DOMAIN ); ?>
+				</label>
 				</p>
 				<select  name="<?php echo esc_html( $this->get_field_name( 'cw_type' ) ); ?>" class="widefat" id="<?php esc_html_e( $this->get_field_id( 'cw_type' ) ); ?>">
-				<option value="short_code" <?php selected( $instance['cw_type'], 'short_code' ); ?> > Short Code</option>
-				<option value="php_code"   <?php selected( $instance['cw_type'], 'php_code' ); ?>> PHP Code</option>
-				<option value="html_code"  <?php selected( $instance['cw_type'], 'html_code' ); ?>> HTML</option>
-				<option value="text_code"  <?php selected( $instance['cw_type'], 'text_code' ); ?>> Text</option>
+				<option value="short_code" <?php selected( $instance['cw_type'], 'short_code' ); ?>>
+					<?php esc_attr_e( 'Short Code', CODE_WIDGET_TEXT_DOMAIN ); ?>
+				</option>
+				<option value="php_code"   <?php selected( $instance['cw_type'], 'php_code' ); ?>> 
+					<?php esc_attr_e( 'PHP Code', CODE_WIDGET_TEXT_DOMAIN ); ?>
+				</option>
+				<option value="html_code"  <?php selected( $instance['cw_type'], 'html_code' ); ?>>
+					<?php esc_attr_e( 'HTML', CODE_WIDGET_TEXT_DOMAIN ); ?>
+				</option>
+				<option value="text_code"  <?php selected( $instance['cw_type'], 'text_code' ); ?>>
+					<?php esc_attr_e( 'Text', CODE_WIDGET_TEXT_DOMAIN ); ?>
+				</option>
 				</select>
 				<p>
 				<textarea class="widefat" rows="12" cols="20" id="<?php echo esc_attr( $this->get_field_id( 'cw_content' ) ); ?>"
 				name="<?php echo esc_attr( $this->get_field_name( 'cw_content' ) ); ?>"><?php echo $instance['cw_content']; ?></textarea>
-				</p
+				</p>
 				<p><input id="<?php echo esc_attr( $this->get_field_id( 'cw_filter' ) ); ?>"
 				name="<?php echo esc_attr( $this->get_field_name( 'cw_filter' ) ); ?>"
 				type="checkbox" <?php checked( $instance['cw_filter'], 'on' ); ?>/>&nbsp;<label
