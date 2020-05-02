@@ -55,7 +55,7 @@ Only users with the unfiltered_html role will be allowed to insert unfiltered HT
 
 
 == Changelog ==
-= 1.0.5 2020-05-02=
+= 1.0.5 2020-05-02 =
 * Compatibility : 5.4.1 compatibility added
 
 = 1.0.4 2020-02-06 =
