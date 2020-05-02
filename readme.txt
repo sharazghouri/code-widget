@@ -1,9 +1,9 @@
 ===  Code Widget ===
-Contributors: sharaz, passoniate
+Contributors: sharaz
 Tags: php, widget, short code, html, code
 Requires at least: 4.0
-Tested up to: 5.2.3
-Stable tag: 1.0.4
+Tested up to: 5.4.1
+Stable tag: 1.0.5
 License: GPLv2
 License URI: http://www.opensource.org/licenses/GPL-2.0
 
@@ -55,6 +55,9 @@ Only users with the unfiltered_html role will be allowed to insert unfiltered HT
 
 
 == Changelog ==
+= 1.0.5 2020-05-02=
+* Compatibility :   5.4.1 compatibility added
+
 = 1.0.4 2020-02-06 =
 * Enhancement :  Thanks to @passoniates for fix missing tag and translation
 
@@ -77,5 +80,5 @@ Only users with the unfiltered_html role will be allowed to insert unfiltered HT
 
 == Upgrade Notice ==
 
-= 1.0.3 =
+= 1.0.5 =
  Please update to least version of the plugin to avoid any inconvenient. 
