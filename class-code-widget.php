@@ -3,7 +3,7 @@
  * Plugin Name: Code Widget
  * Plugin URI: https://wordpress.org/plugins/code-widget/
  * Description: Code Widget help you to run <code>Code</code> and simple text in  widget which have different type <code>Short Code</code> <code>PHP Code</code>. Yes, you can also add <code>TEXT</code> and  <code>HTML</code>.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Sharaz Shahid
  * Author URI: https://twitter.com/sharazghouri1
  * Text Domain: code-widget
@@ -29,7 +29,7 @@ if ( ! defined( 'CODE_WIDGET_PATH' ) ) {
 	define( 'CODE_WIDGET_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 }
 
-define( 'CODE_WIDGET_VERSION', '1.0.4' );
+define( 'CODE_WIDGET_VERSION', '1.0.5' );
 define( 'CODE_WIDGET_TEXT_DOMAIN', 'code-widget' );
 
 if ( ! class_exists( 'Code_Widget' ) ) {
@@ -51,6 +51,9 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 		 */
 		public function __construct() {
 			load_plugin_textdomain( CODE_WIDGET_TEXT_DOMAIN, false, dirname( plugin_basename( __FILE__ ) ) );
+			add_action( 'admin_init', array( $this, 'dismiss_review_notice' ) );
+			add_action( 'admin_init', array( $this, 'show_review_notice') );
+
 			parent::__construct(
 				'codewidget', // Base ID.
 				esc_html__( 'Code Widget', CODE_WIDGET_TEXT_DOMAIN ), // Name.
@@ -223,19 +226,119 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 			return self::$instance;
 		}
 
+		/**
+		 * Check installation time set admin notice.
+		 *
+		 * @since 1.0.5
+		 * @return void
+		 */
+		public function show_review_notice() {
+
+			$install_date = get_option( 'cw_activation_time' );
+			$already_done = get_option( 'cwrn_dismiss' );
+			$show_later_date = get_option( 'cwrn_show_later' );
+			$now = strtotime( 'now' );
+
+			//If already done don't show.
+			if( $already_done ){
+				return;
+			}
+			if( ! $install_date ) {
+				update_option( 'cw_activation_time', strtotime( '-7 days' ) );
+				$install_date = strtotime( '-7 days' );
+			}
+			$past_date    = strtotime( '-7 days' );
+			//If show later exist then must me greater than set time.
+			if( ( $show_later_date &&  $now < $show_later_date ) ) {
+				return;
+			}
+			if ( $past_date >= $install_date ) {
+				add_action( 'admin_notices', array( $this, 'review_admin_notice' ) );
+			}
+		}
+
+		/**
+		 * Review Show admin notice.
+		 *
+		 * @since 1.0.5
+		 * @return void
+		 */
+		public function review_admin_notice() {
+			// wordpress global variable 
+			global $pagenow;
+			if( $pagenow == 'index.php' ){
+
+					$show_later = add_query_arg( array(
+						'cw_show_later' => '1',
+						'_wpnonce' => wp_create_nonce( 'show-later' )
+					), get_admin_url() );
+
+					$already_done = add_query_arg( array(
+						'cw_already_done' => '1',
+						'_wpnonce' => wp_create_nonce( 'already-done' )
+					), get_admin_url() );
+					$review_url = esc_url( 'https://wordpress.org/support/plugin/code-widget/reviews/#new-post' );
+
+					printf(__('<div class="notice notice-info"><p>You have been using <b> Code Widget </b> for a while. We hope you liked it ! Please give us a quick rating, it works as a boost for us to keep working on the plugin !</p><p class="action">
+					<a href="%s" class="button button-primary" target="_blank">Rate Now!</a>
+					<a href="%s" class="button button-secondary "> Show Later </a>
+					<a href="%s" class="void-grid-review-done"> Already Done !</a>
+							</p></div>', CODE_WIDGET_TEXT_DOMAIN ), $review_url, $show_later, $already_done );
+			}
+		}
+
+		/**
+		 * Handel notice action.
+		 *
+		 * @since 1.0.5
+		 * @return void
+		 */
+		public function dismiss_review_notice () {
+
+			if( isset( $_GET['cw_show_later'] ) && isset( $_GET['_wpnonce'] ) ) {
+				if (  wp_verify_nonce( $_GET['_wpnonce'], 'show-later' ) ) {
+					update_option( 'cwrn_show_later', strtotime( '+2 days' ) );
+				}
+			}
+
+			if( isset( $_GET['cw_already_done'] ) && isset( $_GET['_wpnonce'] ) ) {
+				if (  wp_verify_nonce( $_GET['_wpnonce'], 'already-done' ) ) {
+					update_option( 'cwrn_dismiss', true );
+				}
+			}
+
+		}
+
+
 
 	} // class Code_Widget.
 
+
 	/**
-	 * Simple  code widget register
+	 * Widget Register hook callback.
+	 *
+	 * @since 1.0.0
+	 * @version 1.0.5
+	 * @return void
 	 */
 	function register_code_widget() {
+		/** Initialises an object of this class */
 		register_widget( 'Code_Widget' );
 	}
-
 	add_action( 'widgets_init', 'register_code_widget' );
 
-	/** Initialises an object of this class */
-	Code_Widget::get_instance();
 }
+
+register_activation_hook( __FILE__, 'cw_activation_time' );
+
+/**
+ * Plugin Activation hook callback.
+ * @since 1.0.0
+ * @return void
+ */
+function cw_activation_time() {
+	$get_activation_time = strtotime("now");
+	update_option( 'cw_activation_time', $get_activation_time );  // replace your_plugin with Your plugin name
+}
+
 ?>
