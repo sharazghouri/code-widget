@@ -1,9 +1,9 @@
 ===  Code Widget ===
 Contributors: sharaz
-Tags: php, widget, short code, html, code
+Tags: php, widget, short code, html, code, blocks
 Requires at least: 4.0
-Tested up to: 5.4.1
-Stable tag: 1.0.5
+Tested up to: 5.5
+Stable tag: 1.0.6
 License: GPLv2
 License URI: http://www.opensource.org/licenses/GPL-2.0
 
@@ -43,7 +43,9 @@ Only users with the unfiltered_html role will be allowed to insert unfiltered HT
 
   yes check widget setting if you want to add auto paragraph tag for show some beauty and cleanness.
 
+= Got a question ?=
 
+  Send any questions or feedback via my [contact form](https://sharazshahid.me/ping-me/)
 
 
 == Screenshots ==
@@ -55,6 +57,10 @@ Only users with the unfiltered_html role will be allowed to insert unfiltered HT
 
 
 == Changelog ==
+
+= 1.0.6 2020-08-18 =
+* Compatibility : 5.5 compatibility added
+
 = 1.0.5 2020-05-02 =
 * Compatibility : 5.4.1 compatibility added
 
@@ -80,5 +86,5 @@ Only users with the unfiltered_html role will be allowed to insert unfiltered HT
 
 == Upgrade Notice ==
 
-= 1.0.5 =
+= 1.0.6 =
  Please update to least version of the plugin to avoid any inconvenient. 
