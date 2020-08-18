@@ -14,6 +14,7 @@ Code widget help  to  add  Short Code, PHP Code, HTML, and Simple Text in widget
 Code Widget is simple widget allow you to insert any arbitrary Text/HTML  and run  PHP Code or Short Code. This Widget parse PHP code  into simple text and much more.
 
 Only users with the unfiltered_html role will be allowed to insert unfiltered HTML. This includes PHP code, so users without admin or editor permissions will not be able to use this to execute code, even if they have widget editing permissions.
+This plugin is developed and maintained by [Sharaz Shahid](https://twitter.com/sharazghouri1)
 
 
 == Frequently Asked Questions ==
