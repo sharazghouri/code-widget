@@ -28,7 +28,7 @@ This plugin is developed and maintained by [Sharaz Shahid](https://twitter.com/s
 
   Yes, All PHP code must be enclosed in the standard php opening and closing tags ( `<?php` and `?>` ) for it to be recognized and executed. Please See screen shot to check how PHP Code work.
 
-= There's some kind of error  code-widget.php(188) : eval()'d code on line 6 =
+= There are some kind of error  code-widget.php(188) : eval()'d code on line 6 =
 
   That  means  your PHP code is incorrect or otherwise broken.
 
