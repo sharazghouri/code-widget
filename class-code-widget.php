@@ -3,7 +3,7 @@
  * Plugin Name: Code Widget
  * Plugin URI: https://wordpress.org/plugins/code-widget/
  * Description: Code Widget help you to run <code>Code</code> and simple text in  widget which have different type <code>Short Code</code> <code>PHP Code</code>. Yes, you can also add <code>TEXT</code> and  <code>HTML</code>.
- * Version: 1.0.6
+ * Version: 1.0.7
  * Author: Sharaz Shahid
  * Author URI: https://twitter.com/sharazghouri1
  * Text Domain: code-widget
@@ -29,7 +29,7 @@ if ( ! defined( 'CODE_WIDGET_PATH' ) ) {
 	define( 'CODE_WIDGET_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 }
 
-define( 'CODE_WIDGET_VERSION', '1.0.6' );
+define( 'CODE_WIDGET_VERSION', '1.0.7' );
 define( 'CODE_WIDGET_TEXT_DOMAIN', 'code-widget' );
 
 if ( ! class_exists( 'Code_Widget' ) ) {
@@ -50,15 +50,17 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 		 * Register widget with WordPress.
 		 */
 		public function __construct() {
+			$this->deactivate_feedback();
 			load_plugin_textdomain( CODE_WIDGET_TEXT_DOMAIN, false, dirname( plugin_basename( __FILE__ ) ) );
-			add_action( 'admin_init', array( $this, 'dismiss_review_notice' ) );
-			add_action( 'admin_init', array( $this, 'show_review_notice') );
-
+			add_action( 'admin_init', [ $this, 'dismiss_review_notice' ] );
+			add_action( 'admin_init', [ $this, 'show_review_notice' ] );
+			add_action( 'wp_ajax_cw_deactivation_feedback', [ $this, 'deactivation_feedback' ] );
 			parent::__construct(
 				'codewidget', // Base ID.
 				esc_html__( 'Code Widget', CODE_WIDGET_TEXT_DOMAIN ), // Name.
 				array( 'description' => esc_html__( 'Any Text,Short Code,HTML,PHP Code .', CODE_WIDGET_TEXT_DOMAIN ) ) // Args.
 			);
+
 		}
 
 		/**
@@ -309,8 +311,60 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 
 		}
 
+	/**
+	 * Submission deactivation feedback.
+	 *
+	 * @since 1.0.7
+	 * @return void
+	 */
+	public function deactivation_feedback() {
 
+		check_ajax_referer( 'solbox-plugin-deactivate-nonce', 'security' );
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'Jack ;@123#1...' );
+		}
+
+		$_data         = json_decode( wp_unslash( $_POST['plugin'] ), true );
+		$email         = get_option( 'admin_email' );
+		$reason       = sanitize_text_field( wp_unslash( $_data['reasons'][ $_POST['reason'] ] ) );
+		$reason_detail = '';
+
+		if ( 'other' == $_POST['reason'] ) {
+			$reason_detail = sanitize_text_field( wp_unslash(  $_POST['comments'] ) );
+		}
+
+		if ( 'found-better-plugin' == $_POST['reason'] ) {
+			$reason_detail = sanitize_text_field( wp_unslash( $_POST['plugin-name'] ) );
+		}
+
+		$fields = [
+			'email'             => $email,
+			'website'           => get_site_url(),
+			'action'            => 'deactivate',
+			'reason'            => $reason,
+			'reason_detail'     => $reason_detail,
+			'blog_language'     => get_bloginfo( 'language' ),
+			'wordpress_version' => get_bloginfo( 'version' ),
+			'php_version'       => PHP_VERSION,
+			'plugin_version'    => CODE_WIDGET_VERSION,
+			'plugin_name'       => 'Code Widget',
+		];
+
+		$response = wp_remote_post(
+			'https://solbox.dev/',
+			[
+				'method'      => 'POST',
+				'timeout'     => 5,
+				'httpversion' => '1.0',
+				'blocking'    => false,
+				'headers'     => [],
+				'body'        => $fields,
+			]
+		);
+
+		wp_die();
+	}
 	} // class Code_Widget.
 
 
