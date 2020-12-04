@@ -3,7 +3,7 @@
  * Plugin Name: Code Widget
  * Plugin URI: https://wordpress.org/plugins/code-widget/
  * Description: Code Widget help you to run <code>Code</code> and simple text in  widget which have different type <code>Short Code</code> <code>PHP Code</code>. Yes, you can also add <code>TEXT</code> and  <code>HTML</code>.
- * Version: 1.0.7
+ * Version: 1.0.8
  * Author: Sharaz Shahid
  * Author URI: https://twitter.com/sharazghouri1
  * Text Domain: code-widget
@@ -29,7 +29,7 @@ if ( ! defined( 'CODE_WIDGET_PATH' ) ) {
 	define( 'CODE_WIDGET_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 }
 
-define( 'CODE_WIDGET_VERSION', '1.0.7' );
+define( 'CODE_WIDGET_VERSION', '1.0.8' );
 define( 'CODE_WIDGET_TEXT_DOMAIN', 'code-widget' );
 
 if ( ! class_exists( 'Code_Widget' ) ) {
@@ -50,7 +50,6 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 		 * Register widget with WordPress.
 		 */
 		public function __construct() {
-			$this->deactivate_feedback();
 			load_plugin_textdomain( CODE_WIDGET_TEXT_DOMAIN, false, dirname( plugin_basename( __FILE__ ) ) );
 			add_action( 'admin_init', [ $this, 'dismiss_review_notice' ] );
 			add_action( 'admin_init', [ $this, 'show_review_notice' ] );

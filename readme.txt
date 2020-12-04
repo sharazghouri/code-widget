@@ -3,7 +3,7 @@ Contributors: sharaz
 Tags: php, widget, short code, html, code, blocks
 Requires at least: 4.0
 Tested up to: 5.5
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv2
 License URI: http://www.opensource.org/licenses/GPL-2.0
 
@@ -59,8 +59,12 @@ This plugin is developed and maintained by [Sharaz Shahid](https://twitter.com/s
 
 == Changelog ==
 
-= 1.0.6 2020-08-18 =
+= 1.0.8 2020-12-04 =
+* Big fix: call to undefined fo line Code_Widget::deactivate_feedback()
+
+= 1.0.7 2020-12-02 =
 * Code Refactor : code refactor and deactivation feedback added.
+
 = 1.0.6 2020-08-18 =
 * Compatibility : 5.5 compatibility added
 
