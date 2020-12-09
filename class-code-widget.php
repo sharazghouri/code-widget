@@ -3,7 +3,7 @@
  * Plugin Name: Code Widget
  * Plugin URI: https://wordpress.org/plugins/code-widget/
  * Description: Code Widget help you to run <code>Code</code> and simple text in  widget which have different type <code>Short Code</code> <code>PHP Code</code>. Yes, you can also add <code>TEXT</code> and  <code>HTML</code>.
- * Version: 1.0.8
+ * Version: 1.0.9
  * Author: Sharaz Shahid
  * Author URI: https://twitter.com/sharazghouri1
  * Text Domain: code-widget
@@ -29,7 +29,7 @@ if ( ! defined( 'CODE_WIDGET_PATH' ) ) {
 	define( 'CODE_WIDGET_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 }
 
-define( 'CODE_WIDGET_VERSION', '1.0.8' );
+define( 'CODE_WIDGET_VERSION', '1.0.9' );
 define( 'CODE_WIDGET_TEXT_DOMAIN', 'code-widget' );
 
 if ( ! class_exists( 'Code_Widget' ) ) {
@@ -113,15 +113,16 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 		 * @param array $instance Previously saved values from database.
 		 */
 		public function form( $instance ) {
-			$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'New title', CODE_WIDGET_TEXT_DOMAIN );
 			if ( 0 == count( $instance ) ) {
 				$instance['cw_type']    = ! empty( $instance['cw_type'] ) ? $instance['cw_type'] : 'short_code';
 				$instance['cw_content'] = ! empty( $instance['cw_content'] ) ? $instance['cw_content'] : esc_html__( 'your code ....', CODE_WIDGET_TEXT_DOMAIN );
 				$instance['cw_filter']  = ! empty( $instance['cw_filter'] ) ? $instance['cw_filter'] : 0;
+				$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'New title', CODE_WIDGET_TEXT_DOMAIN );
 			} else {
 				$instance['cw_type']    = $instance['cw_type'];
 				$instance['cw_content'] = $instance['cw_content'];
 				$instance['cw_filter']  = $instance['cw_filter'];
+				$title = $instance['title'];
 			}
 			?>
 				<p>
