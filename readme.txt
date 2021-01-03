@@ -1,9 +1,12 @@
 ===  Code Widget ===
 Contributors: sharaz
 Tags: php, widget, short code, html, code, blocks
+Author URI: https://twitter.com/sharazghouri1
+Donate link: https://solbox.dev/donate-code-widget
 Requires at least: 4.0
 Tested up to: 5.6
-Stable tag: 1.0.9
+Stable tag: 1.0.10
+Requires PHP: 7.0
 License: GPLv2
 License URI: http://www.opensource.org/licenses/GPL-2.0
 
@@ -59,6 +62,9 @@ This plugin is developed and maintained by [Sharaz Shahid](https://twitter.com/s
 
 == Changelog ==
 
+= 1.0.10 2021-01-03 =
+* Code Refactor : code refactor and deactivation feedback fixed.
+
 = 1.0.9 2020-12-16 =
 * Compatibility : 5.6 compatibility added
 
@@ -96,5 +102,5 @@ This plugin is developed and maintained by [Sharaz Shahid](https://twitter.com/s
 
 == Upgrade Notice ==
 
-= 1.0.7 =
+= 1.0.10 =
  Please update to least version of the plugin to avoid any inconvenient. 
