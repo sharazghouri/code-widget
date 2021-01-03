@@ -54,12 +54,16 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 			add_action( 'admin_init', [ $this, 'dismiss_review_notice' ] );
 			add_action( 'admin_init', [ $this, 'show_review_notice' ] );
 			add_action( 'wp_ajax_cw_deactivation_feedback', [ $this, 'deactivation_feedback' ] );
+			if ( class_exists( 'WooCommerce' ) ) {
+				add_action( 'admin_notices', [ $this, 'sb_promote_plugins' ] );
+			}
 			parent::__construct(
 				'codewidget', // Base ID.
 				esc_html__( 'Code Widget', CODE_WIDGET_TEXT_DOMAIN ), // Name.
 				array( 'description' => esc_html__( 'Any Text,Short Code,HTML,PHP Code .', CODE_WIDGET_TEXT_DOMAIN ) ) // Args.
 			);
-
+			
+			require CODE_WIDGET_PATH .'/lib/solbox-plugin-deactivation-survey/deactivate-feedback-form.php';
 		}
 
 		/**
@@ -117,12 +121,12 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 				$instance['cw_type']    = ! empty( $instance['cw_type'] ) ? $instance['cw_type'] : 'short_code';
 				$instance['cw_content'] = ! empty( $instance['cw_content'] ) ? $instance['cw_content'] : esc_html__( 'your code ....', CODE_WIDGET_TEXT_DOMAIN );
 				$instance['cw_filter']  = ! empty( $instance['cw_filter'] ) ? $instance['cw_filter'] : 0;
-				$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'New title', CODE_WIDGET_TEXT_DOMAIN );
+				$title                  = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'New title', CODE_WIDGET_TEXT_DOMAIN );
 			} else {
 				$instance['cw_type']    = $instance['cw_type'];
 				$instance['cw_content'] = $instance['cw_content'];
 				$instance['cw_filter']  = $instance['cw_filter'];
-				$title = $instance['title'];
+				$title                  = $instance['title'];
 			}
 			?>
 				<p>
@@ -158,6 +162,7 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 				name="<?php echo esc_attr( $this->get_field_name( 'cw_filter' ) ); ?>"
 				type="checkbox" <?php checked( $instance['cw_filter'], 'on' ); ?>/>&nbsp;<label
 				for="<?php echo esc_html( $this->get_field_id( 'cw_filter' ) ); ?>"><?php esc_html_e( 'Automatically add paragraphs.', CODE_WIDGET_TEXT_DOMAIN ); ?></label>
+				<a href="https://buy.paddle.com/product/640837" target="_blank"><?php _e( 'Donate this plugin', CODE_WIDGET_TEXT_DOMAIN )?></a>
 				</p>
 			<?php
 		}
@@ -236,22 +241,22 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 		 */
 		public function show_review_notice() {
 
-			$install_date = get_option( 'cw_activation_time' );
-			$already_done = get_option( 'cwrn_dismiss' );
+			$install_date    = get_option( 'cw_activation_time' );
+			$already_done    = get_option( 'cwrn_dismiss' );
 			$show_later_date = get_option( 'cwrn_show_later' );
-			$now = strtotime( 'now' );
+			$now             = strtotime( 'now' );
 
-			//If already done don't show.
-			if( $already_done ){
+			// If already done don't show.
+			if ( $already_done ) {
 				return;
 			}
-			if( ! $install_date ) {
+			if ( ! $install_date ) {
 				update_option( 'cw_activation_time', strtotime( '-7 days' ) );
 				$install_date = strtotime( '-7 days' );
 			}
-			$past_date    = strtotime( '-7 days' );
-			//If show later exist then must me greater than set time.
-			if( ( $show_later_date &&  $now < $show_later_date ) ) {
+			$past_date = strtotime( '-7 days' );
+			// If show later exist then must me greater than set time.
+			if ( ( $show_later_date && $now < $show_later_date ) ) {
 				return;
 			}
 			if ( $past_date >= $install_date ) {
@@ -266,20 +271,26 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 		 * @return void
 		 */
 		public function review_admin_notice() {
-			// wordpress global variable 
+			// WordPress global variable.
 			global $pagenow;
-			if( $pagenow == 'index.php' ){
+			if ( $pagenow == 'index.php' ) {
 
-					$show_later = add_query_arg( array(
-						'cw_show_later' => '1',
-						'_wpnonce' => wp_create_nonce( 'show-later' )
-					), get_admin_url() );
+					$show_later = add_query_arg(
+						array(
+							'cw_show_later' => '1',
+							'_wpnonce'      => wp_create_nonce( 'show-later' ),
+						),
+						get_admin_url()
+					);
 
-					$already_done = add_query_arg( array(
-						'cw_already_done' => '1',
-						'_wpnonce' => wp_create_nonce( 'already-done' )
-					), get_admin_url() );
-					$review_url = esc_url( 'https://wordpress.org/support/plugin/code-widget/reviews/#new-post' );
+					$already_done = add_query_arg(
+						array(
+							'cw_already_done' => '1',
+							'_wpnonce'        => wp_create_nonce( 'already-done' ),
+						),
+						get_admin_url()
+					);
+					$review_url   = esc_url( 'https://wordpress.org/support/plugin/code-widget/reviews/#new-post' );
 
 					printf(__('<div class="notice notice-info"><p>You have been using <b> Code Widget </b> for a while. We hope you liked it ! Please give us a quick rating, it works as a boost for us to keep working on the plugin !</p><p class="action">
 					<a href="%s" class="button button-primary" target="_blank">Rate Now!</a>
@@ -295,76 +306,121 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 		 * @since 1.0.5
 		 * @return void
 		 */
-		public function dismiss_review_notice () {
+		public function dismiss_review_notice() {
 
-			if( isset( $_GET['cw_show_later'] ) && isset( $_GET['_wpnonce'] ) ) {
-				if (  wp_verify_nonce( $_GET['_wpnonce'], 'show-later' ) ) {
+			if ( isset( $_GET['cw_show_later'] ) && isset( $_GET['_wpnonce'] ) ) {
+				if ( wp_verify_nonce( $_GET['_wpnonce'], 'show-later' ) ) {
 					update_option( 'cwrn_show_later', strtotime( '+2 days' ) );
 				}
 			}
 
-			if( isset( $_GET['cw_already_done'] ) && isset( $_GET['_wpnonce'] ) ) {
-				if (  wp_verify_nonce( $_GET['_wpnonce'], 'already-done' ) ) {
+			if ( isset( $_GET['cw_already_done'] ) && isset( $_GET['_wpnonce'] ) ) {
+				if ( wp_verify_nonce( $_GET['_wpnonce'], 'already-done' ) ) {
 					update_option( 'cwrn_dismiss', true );
+				}
+			}
+			if ( isset( $_GET['satc_dismiss'] ) && isset( $_GET['_wpnonce'] ) ) {
+				if ( wp_verify_nonce( $_GET['_wpnonce'], 'satc_dismiss' ) ) {
+					update_option( 'satc_dismiss', true );
 				}
 			}
 
 		}
 
-	/**
-	 * Submission deactivation feedback.
-	 *
-	 * @since 1.0.7
-	 * @return void
-	 */
-	public function deactivation_feedback() {
+		/**
+		 * Submission deactivation feedback.
+		 *
+		 * @since 1.0.7
+		 * @return void
+		 */
+		public function deactivation_feedback() {
 
 		check_ajax_referer( 'solbox-plugin-deactivate-nonce', 'security' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( 'Jack ;@123#1...' );
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_die( 'Jack;@123// 1...' );
+			}
+
+			$_data         = json_decode( wp_unslash( $_POST['plugin'] ), true );
+			$email         = get_option( 'admin_email' );
+			$reason        = sanitize_text_field( wp_unslash( $_data['reasons'][ $_POST['reason'] ] ) );
+			$reason_detail = '';
+
+			if ( 'other' == $_POST['reason'] ) {
+				$reason_detail = sanitize_text_field( wp_unslash( $_POST['comments'] ) );
+			}
+
+			if ( 'found-better-plugin' == $_POST['reason'] ) {
+				$reason_detail = sanitize_text_field( wp_unslash( $_POST['plugin-name'] ) );
+			}
+
+			$fields = [
+				'email'             => $email,
+				'website'           => get_site_url(),
+				'action'            => 'deactivate',
+				'reason'            => $reason,
+				'reason_detail'     => $reason_detail,
+				'blog_language'     => get_bloginfo( 'language' ),
+				'wordpress_version' => get_bloginfo( 'version' ),
+				'php_version'       => PHP_VERSION,
+				'plugin_version'    => CODE_WIDGET_VERSION,
+				'plugin_name'       => 'Code Widget',
+			];
+
+			$response = wp_remote_post(
+				'https://solbox.dev/',
+				[
+					'method'      => 'POST',
+					'timeout'     => 5,
+					'httpversion' => '1.0',
+					'blocking'    => false,
+					'headers'     => [],
+					'body'        => $fields,
+				]
+			);
+
+			wp_die();
 		}
 
-		$_data         = json_decode( wp_unslash( $_POST['plugin'] ), true );
-		$email         = get_option( 'admin_email' );
-		$reason       = sanitize_text_field( wp_unslash( $_data['reasons'][ $_POST['reason'] ] ) );
-		$reason_detail = '';
+			/**
+			 * Review Show admin notice.
+			 *
+			 * @since 1.0.10
+			 * @return void
+			 */
+		public function sb_promote_plugins() {
+			//update_option( 'satc_dismiss', '' );
+			$already_dismiss = get_option( 'satc_dismiss' );
+			if ( $already_dismiss ) {
+				return;
+			}
+			// WordPress global variable.
+			global $pagenow;
+			if ( $pagenow == 'index.php' ) {
+				$action = 'install-plugin';
+				$slug   = 'sticky-add-to-cart-woo';
+				$satc_url = wp_nonce_url(
+					add_query_arg(
+						array(
+							'action' => $action,
+							'plugin' => $slug,
+						),
+						admin_url( 'update.php' )
+					),
+					$action . '_' . $slug
+				);
+				$dismiss_action = add_query_arg(
+					array(
+						'satc_dismiss' => '1',
+						'_wpnonce'        => wp_create_nonce( 'satc_dismiss' ),
+					),
+					get_admin_url()
+				);
 
-		if ( 'other' == $_POST['reason'] ) {
-			$reason_detail = sanitize_text_field( wp_unslash(  $_POST['comments'] ) );
+					printf( __( '<div class="notice notice-info is-dismissible"><p>Worried about conversion rates?😟 No worries,🥳 <a href="%s" style="text-decoration:none" class="button button-secondary"><b>Install</b></a> Simple Sticky Add To Cart For WooCommerce to increase the conversion rate of product page. </p> <a href="%s"><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></a></div>' ), $satc_url, $dismiss_action );
+			}
 		}
 
-		if ( 'found-better-plugin' == $_POST['reason'] ) {
-			$reason_detail = sanitize_text_field( wp_unslash( $_POST['plugin-name'] ) );
-		}
-
-		$fields = [
-			'email'             => $email,
-			'website'           => get_site_url(),
-			'action'            => 'deactivate',
-			'reason'            => $reason,
-			'reason_detail'     => $reason_detail,
-			'blog_language'     => get_bloginfo( 'language' ),
-			'wordpress_version' => get_bloginfo( 'version' ),
-			'php_version'       => PHP_VERSION,
-			'plugin_version'    => CODE_WIDGET_VERSION,
-			'plugin_name'       => 'Code Widget',
-		];
-
-		$response = wp_remote_post(
-			'https://solbox.dev/',
-			[
-				'method'      => 'POST',
-				'timeout'     => 5,
-				'httpversion' => '1.0',
-				'blocking'    => false,
-				'headers'     => [],
-				'body'        => $fields,
-			]
-		);
-
-		wp_die();
-	}
 	} // class Code_Widget.
 
 
@@ -387,11 +443,12 @@ register_activation_hook( __FILE__, 'cw_activation_time' );
 
 /**
  * Plugin Activation hook callback.
+ *
  * @since 1.0.0
  * @return void
  */
 function cw_activation_time() {
-	$get_activation_time = strtotime("now");
+	$get_activation_time = strtotime( 'now' );
 	update_option( 'cw_activation_time', $get_activation_time );  // replace your_plugin with Your plugin name
 }
 
