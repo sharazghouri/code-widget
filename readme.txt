@@ -62,7 +62,7 @@ This plugin is developed and maintained by [Sharaz Shahid](https://twitter.com/s
 
 == Changelog ==
 
-= 1.0.11s 2021-01-03 =
+= 1.0.11 2021-01-03 =
 * Compatibility : Elementor widget Compatibility added.
 
 = 1.0.10 2021-01-03 =
