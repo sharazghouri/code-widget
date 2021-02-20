@@ -3,7 +3,7 @@
  * Plugin Name: Code Widget
  * Plugin URI: https://wordpress.org/plugins/code-widget/
  * Description: Code Widget help you to run <code>Code</code> and simple text in  widget which have different type <code>Short Code</code> <code>PHP Code</code>. Yes, you can also add <code>TEXT</code> and  <code>HTML</code>.
- * Version: 1.0.10
+ * Version: 1.0.11
  * Author: Sharaz Shahid
  * Author URI: https://twitter.com/sharazghouri1
  * Text Domain: code-widget
@@ -29,7 +29,7 @@ if ( ! defined( 'CODE_WIDGET_PATH' ) ) {
 	define( 'CODE_WIDGET_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 }
 
-define( 'CODE_WIDGET_VERSION', '1.0.10' );
+define( 'CODE_WIDGET_VERSION', '1.0.11' );
 define( 'CODE_WIDGET_TEXT_DOMAIN', 'code-widget' );
 
 if ( ! class_exists( 'Code_Widget' ) ) {
@@ -54,9 +54,8 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 			add_action( 'admin_init', [ $this, 'dismiss_review_notice' ] );
 			add_action( 'admin_init', [ $this, 'show_review_notice' ] );
 			add_action( 'wp_ajax_cw_deactivation_feedback', [ $this, 'deactivation_feedback' ] );
-			if ( class_exists( 'WooCommerce' ) ) {
-				add_action( 'admin_notices', [ $this, 'sb_promote_plugins' ] );
-			}
+			add_action( 'admin_notices', [ $this, 'sb_promote_plugins' ] );
+
 			parent::__construct(
 				'codewidget', // Base ID.
 				esc_html__( 'Code Widget', CODE_WIDGET_TEXT_DOMAIN ), // Name.
@@ -389,35 +388,39 @@ if ( ! class_exists( 'Code_Widget' ) ) {
 			 * @return void
 			 */
 		public function sb_promote_plugins() {
-			//update_option( 'satc_dismiss', '' );
+			// update_option( 'satc_dismiss', '' );
 			$already_dismiss = get_option( 'satc_dismiss' );
 			if ( $already_dismiss ) {
 				return;
 			}
 			// WordPress global variable.
 			global $pagenow;
-			if ( $pagenow == 'index.php' ) {
-				$action = 'install-plugin';
-				$slug   = 'sticky-add-to-cart-woo';
-				$satc_url = wp_nonce_url(
-					add_query_arg(
-						array(
-							'action' => $action,
-							'plugin' => $slug,
-						),
-						admin_url( 'update.php' )
-					),
-					$action . '_' . $slug
-				);
-				$dismiss_action = add_query_arg(
-					array(
-						'satc_dismiss' => '1',
-						'_wpnonce'        => wp_create_nonce( 'satc_dismiss' ),
-					),
-					get_admin_url()
-				);
 
-					printf( __( '<div class="notice notice-info is-dismissible"><p>Worried about conversion rates?😟 No worries,🥳 <a href="%s" style="text-decoration:none" class="button button-secondary"><b>Install</b></a> Simple Sticky Add To Cart For WooCommerce to increase the conversion rate of product page. </p> <a href="%s"><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></a></div>' ), $satc_url, $dismiss_action );
+			$action = 'install-plugin';
+			$slug   = 'sticky-add-to-cart-woo';
+			$satc_url = wp_nonce_url(
+				add_query_arg(
+					array(
+						'action' => $action,
+						'plugin' => $slug,
+					),
+					admin_url( 'update.php' )
+				),
+				$action . '_' . $slug
+			);
+			$dismiss_action = add_query_arg(
+				array(
+					'satc_dismiss' => '1',
+					'_wpnonce'        => wp_create_nonce( 'satc_dismiss' ),
+				),
+				get_admin_url()
+			);
+
+			if ( class_exists( 'WooCommerce' ) ) { 
+				printf( __( '<div class="notice notice-info is-dismissible"><p>Worried about conversion rates?😟 No worries,🥳 <a href="%s" style="text-decoration:none" class="button button-secondary"><b>Install</b></a> Simple Sticky Add To Cart For WooCommerce to increase the conversion rate of product page. </p> <a href="%s"><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></a></div>' ), $satc_url, $dismiss_action );
+			} else {
+				$satc_url = "https://wordpress.org/plugins/sticky-add-to-cart-woo/";
+				printf( __( '<div class="notice notice-info is-dismissible"><p>Worried about conversion rates?😟 No worries,🥳 <a  target="_blank" href="%s" style="text-decoration:none" class="button button-secondary"><b>Try Free</b></a> Simple Sticky Add To Cart For WooCommerce to increase the conversion rate of product page. </p> <a href="%s"><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></a></div>' ), $satc_url, $dismiss_action );
 			}
 		}
 

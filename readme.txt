@@ -4,8 +4,8 @@ Tags: php, widget, short code, html, code, blocks
 Author URI: https://twitter.com/sharazghouri1
 Donate link: https://solbox.dev/donate-code-widget
 Requires at least: 4.0
-Tested up to: 5.6
-Stable tag: 1.0.10
+Tested up to: 5.6.1
+Stable tag: 1.0.11
 Requires PHP: 7.0
 License: GPLv2
 License URI: http://www.opensource.org/licenses/GPL-2.0
@@ -62,6 +62,9 @@ This plugin is developed and maintained by [Sharaz Shahid](https://twitter.com/s
 
 == Changelog ==
 
+= 1.0.11s 2021-01-03 =
+* Compatibility : Elementor widget Compatibility added.
+
 = 1.0.10 2021-01-03 =
 * Code Refactor : code refactor and deactivation feedback fixed.
 
@@ -102,5 +105,5 @@ This plugin is developed and maintained by [Sharaz Shahid](https://twitter.com/s
 
 == Upgrade Notice ==
 
-= 1.0.10 =
+= 1.0.11=
  Please update to least version of the plugin to avoid any inconvenient. 
