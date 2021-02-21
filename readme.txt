@@ -5,7 +5,7 @@ Author URI: https://twitter.com/sharazghouri1
 Donate link: https://solbox.dev/donate-code-widget
 Requires at least: 4.0
 Tested up to: 5.6.1
-Stable tag: 1.0.11
+Stable tag: 1.0.12
 Requires PHP: 7.0
 License: GPLv2
 License URI: http://www.opensource.org/licenses/GPL-2.0
