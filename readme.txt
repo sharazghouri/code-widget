@@ -14,7 +14,7 @@ Code widget help  to  add  Short Code, PHP Code, HTML, and Simple Text in widget
 
 == Description ==
 
-Code Widget is simple widget allow you to insert any arbitrary Text/HTML  and run  PHP Code or Short Code. This Widget parse PHP code  into simple text and much more.
+Code Widget is simple widget allows you to insert any arbitrary Text/HTML  and run  PHP Code or Short Code. This Widget parses PHP code  into simple text and much more.
 
 Only users with the unfiltered_html role will be allowed to insert unfiltered HTML. This includes PHP code, so users without admin or editor permissions will not be able to use this to execute code, even if they have widget editing permissions.
 This plugin is developed and maintained by [Sharaz Shahid](https://twitter.com/sharazghouri1)
@@ -31,7 +31,7 @@ This plugin is developed and maintained by [Sharaz Shahid](https://twitter.com/s
 
   Yes, All PHP code must be enclosed in the standard php opening and closing tags ( `<?php` and `?>` ) for it to be recognized and executed. Please See screen shot to check how PHP Code work.
 
-= There's some kind of error  code-widget.php(188) : eval()'d code on line 6 =
+= There are some kind of error  code-widget.php(188) : eval()'d code on line 6 =
 
   That  means  your PHP code is incorrect or otherwise broken.
 
