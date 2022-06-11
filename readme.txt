@@ -4,8 +4,8 @@ Tags: php, widget, short code, html, code, blocks
 Author URI: https://twitter.com/sharazghouri1
 Donate link: https://solbox.dev/donate-code-widget
 Requires at least: 4.0
-Tested up to: 5.8
-Stable tag: 1.0.14
+Tested up to: 6.1.0
+Stable tag: 1.0.15
 Requires PHP: 7.0
 License: GPLv2
 License URI: http://www.opensource.org/licenses/GPL-2.0
@@ -61,6 +61,10 @@ This plugin is developed and maintained by [Sharaz Shahid](https://twitter.com/s
 
 
 == Changelog ==
+
+= 1.0.15 2021-06-11 =
+* Compatibility : WP 6.1.0 compatibility added
+* Enhancement : Block editor support added
 
 = 1.0.14 2021-07-31 =
 * Compatibility : WP 5.8 compatibility added
