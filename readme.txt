@@ -54,10 +54,11 @@ This plugin is developed and maintained by [Sharaz Shahid](https://twitter.com/s
 
 == Screenshots ==
 
-1. How short code work.
-2. How PHP code work.
-3. How HTML Mark add.
-4. How Simple Text add and how auto paragraph work.
+1. Code Widget in block editor.
+2. How short code work.
+3. How PHP code work.
+4. How HTML Mark add.
+5. How Simple Text add and how auto paragraph work.
 
 
 == Changelog ==
